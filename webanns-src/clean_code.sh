@@ -1,0 +1,1 @@
+prettier --write "**/*.{js,jsx,ts,tsx,css,scss,html,json,md}"

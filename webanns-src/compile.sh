@@ -1,0 +1,13 @@
+em++ src/wasm/distance.cpp src/wasm/hnsw.cpp src/wasm/hnsw_main.cpp --bind -O3 \
+    -s WASM=1 \
+    -msimd128 \
+    -s MODULARIZE=1 \
+    -s ALLOW_MEMORY_GROWTH=1 \
+    -s 'EXPORT_NAME="createHNSW"' \
+    -s ASYNCIFY=1 \
+    -lembind \
+    -s EXPORT_ES6=1 \
+    -s ENVIRONMENT=web \
+    -s FILESYSTEM=0 \
+    --emit-tsd hnsw_main.d.ts \
+    -o ./src/wasm/hnsw_main.js

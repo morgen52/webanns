@@ -1,0 +1,471 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>WebANNS</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Inter:400,500,700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --primary: #4f8cff;
+        --primary-dark: #2861b0;
+        --success: #3ecf8e;
+        --danger: #ff5e5e;
+        --bg: #f5f7fa;
+        --card-bg: rgba(255, 255, 255, 0.85);
+        --glass-blur: 20px;
+        --border: #e3e8f0;
+        --shadow:
+          0 4px 32px 0 rgba(60, 72, 100, 0.08),
+          0 1.5px 4px 0 rgba(60, 72, 100, 0.06);
+        --radius: 18px;
+        --input-bg: rgba(245, 247, 250, 0.85);
+        --input-border: #e3e8f0;
+        --input-focus: #b2d2ff;
+        --text-main: #20232a;
+        --text-secondary: #6c7280;
+        --button-radius: 12px;
+      }
+
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        font-family:
+          "Inter", "Helvetica Neue", Arial, "PingFang SC", "Microsoft YaHei",
+          sans-serif;
+        background: var(--bg);
+        color: var(--text-main);
+        min-height: 100vh;
+        box-sizing: border-box;
+      }
+
+      body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        background: linear-gradient(120deg, #f6fafd 0%, #e9f0fb 100%);
+      }
+
+      .card {
+        background: var(--card-bg);
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+        padding: 48px 40px 32px 40px;
+        width: calc(100vw - 200px);
+        height: calc(100vh - 200px);
+        min-width: 650px;
+        min-height: 650px;
+        backdrop-filter: blur(var(--glass-blur));
+        border: 1px solid var(--border);
+        display: flex;
+        flex-direction: column;
+        gap: 28px;
+        animation: fadein 0.9s cubic-bezier(0.37, 1.14, 0.91, 1.12);
+      }
+
+      @keyframes fadein {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .title {
+        font-size: 2.1rem;
+        font-weight: 700;
+        letter-spacing: -0.01em;
+        margin-bottom: 12px;
+        color: var(--primary-dark);
+        text-shadow:
+          0 1px 2px #fff8,
+          0 1.5px 4px #c9e0ff55;
+      }
+
+      .desc {
+        font-size: 1.09rem;
+        color: var(--text-secondary);
+        margin-bottom: 10px;
+        line-height: 1.7;
+      }
+
+      label {
+        font-weight: 500;
+        color: var(--primary-dark);
+        margin-bottom: 7px;
+        display: inline-block;
+        letter-spacing: 0.01em;
+        font-size: 1rem;
+        transition: color 0.2s;
+      }
+
+      input[type="file"] {
+        background: var(--input-bg);
+        border: 1.5px solid var(--input-border);
+        border-radius: 9px;
+        padding: 7px 12px;
+        font-size: 1rem;
+        color: var(--text-main);
+        width: 100%;
+        margin-top: 5px;
+        outline: none;
+        transition:
+          border 0.2s,
+          box-shadow 0.2s;
+        box-shadow: 0 1.5px 4px 0 rgba(60, 72, 100, 0.07);
+      }
+
+      input[type="file"]:focus {
+        border: 1.5px solid var(--input-focus);
+        box-shadow: 0 0 0 2px #b2d2ff33;
+      }
+
+      .input-group {
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+      }
+
+      .button-row {
+        display: flex;
+        gap: 18px;
+        margin-top: 10px;
+        flex-wrap: wrap;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-start;
+      }
+
+      button {
+        padding: 11px 32px;
+        font-size: 1.08rem;
+        font-weight: 600;
+        border: none;
+        border-radius: var(--button-radius);
+        background: linear-gradient(90deg, var(--primary) 60%, #7dcfff 100%);
+        color: #fff;
+        box-shadow:
+          0 3px 18px 0 rgba(79, 140, 255, 0.13),
+          0 1.5px 4px 0 rgba(60, 72, 100, 0.06);
+        transition:
+          background 0.22s,
+          transform 0.13s,
+          box-shadow 0.18s;
+        cursor: pointer;
+        letter-spacing: 0.01em;
+        outline: none;
+        user-select: none;
+        position: relative;
+        overflow: hidden;
+        z-index: 1;
+      }
+
+      button:before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: radial-gradient(
+          circle at 60% 40%,
+          #b2d2ff33 0%,
+          transparent 80%
+        );
+        opacity: 0;
+        transition: opacity 0.2s;
+        z-index: 0;
+      }
+
+      button:hover:before {
+        opacity: 1;
+      }
+      button:hover {
+        background: linear-gradient(90deg, #3e7ee6 60%, #5bb5ff 100%);
+        transform: translateY(-2px) scale(1.03);
+        box-shadow:
+          0 6px 24px 0 rgba(79, 140, 255, 0.21),
+          0 1.5px 4px 0 rgba(60, 72, 100, 0.06);
+      }
+      button:active {
+        background: linear-gradient(90deg, #2861b0 60%, #4689c7 100%);
+        transform: scale(0.98);
+      }
+      button:disabled {
+        background: linear-gradient(90deg, #dbeafe 60%, #f3f7fb 100%);
+        color: #b9c6d8;
+        cursor: not-allowed;
+        box-shadow: none;
+      }
+      button.clicked {
+        background: linear-gradient(
+          90deg,
+          var(--success) 60%,
+          #a6f3d1 100%
+        ) !important;
+        color: #fff !important;
+      }
+
+      #output {
+        margin-top: 18px;
+        background: rgba(245, 247, 250, 0.67);
+        border-radius: 11px;
+        font-family: "JetBrains Mono", "Fira Mono", "Consolas", monospace;
+        font-size: 1.01rem;
+        color: #3a4a65;
+        padding: 14px 18px 12px 18px;
+        box-shadow: 0 1.5px 4px 0 rgba(60, 72, 100, 0.06);
+        border: 1.2px solid #e3e8f0;
+        word-break: break-all;
+        line-height: 1.6;
+        overflow-y: auto;
+        transition: border 0.2s;
+        height: 100%;
+      }
+
+      .custom-file {
+        position: relative;
+        width: 100%;
+        display: flex;
+        align-items: center;
+      }
+
+      .custom-file input[type="file"] {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        cursor: pointer;
+        z-index: 2;
+      }
+
+      .custom-file-label {
+        display: flex;
+        align-items: center;
+        gap: 0.6em;
+        width: 100%;
+        padding: 9px 14px;
+        border-radius: 9px;
+        background: var(--input-bg);
+        border: 1.5px solid var(--input-border);
+        font-size: 1rem;
+        color: var(--text-secondary);
+        box-shadow: 0 1.5px 4px 0 rgba(60, 72, 100, 0.07);
+        transition:
+          border 0.2s,
+          box-shadow 0.2s,
+          background 0.2s;
+        min-height: 38px;
+        z-index: 1;
+        position: relative;
+        user-select: none;
+      }
+
+      .custom-file input[type="file"]:focus + .custom-file-label,
+      .custom-file input[type="file"]:hover + .custom-file-label {
+        border: 1.5px solid var(--input-focus);
+        background: #eaf4ff;
+        color: var(--primary-dark);
+        box-shadow: 0 0 0 2px #b2d2ff33;
+      }
+
+      .custom-file-label::before {
+        content: "";
+        display: inline-block;
+        width: 1.2em;
+        height: 1.2em;
+        background: url('data:image/svg+xml;utf8,<svg fill="none" stroke="%234f8cff" stroke-width="1.7" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M4 2h8l4 4v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2z"/><path d="M12 2v4h4"/></svg>')
+          center/contain no-repeat;
+        margin-right: 0.7em;
+        vertical-align: middle;
+      }
+
+      .custom-file-label.selected {
+        color: var(--primary-dark);
+        font-weight: 500;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <div class="title">WebANNS</div>
+      <div class="desc">
+        Ultra-fast Approximate Nearest Neighbor Search in Browser.<br />
+        <span style="color: #6c7280; font-size: 0.98em">
+          Upload your <strong>data points</strong> and
+          <strong>HNSW graph</strong> to get started.
+        </span>
+      </div>
+      <div class="input-group">
+        <label for="fileInput"
+          >Upload Data Points (<span style="letter-spacing: 0.01em">.jsonl</span
+          >):</label
+        >
+        <div class="custom-file">
+          <input type="file" id="fileInput" accept=".jsonl" />
+          <span class="custom-file-label" id="fileInputLabel">Choose file</span>
+        </div>
+      </div>
+      <div class="input-group">
+        <label for="indexInput"
+          >Upload HNSW Graph (<span style="letter-spacing: 0.01em">.jsonl</span
+          >):</label
+        >
+        <div class="custom-file">
+          <input type="file" id="indexInput" accept=".jsonl" />
+          <span class="custom-file-label" id="indexInputLabel"
+            >Choose file</span
+          >
+        </div>
+      </div>
+      <div class="button-row">
+        <button id="loadButton" disabled>Load</button>
+        <button id="loadCacheButton" disabled>Load With Cache</button>
+        <button id="queryEvalButton" disabled>Query Eval</button>
+        <button id="exportButton" disabled>Export HNSW GRAPH</button>
+        <button id="queryButton" disabled>Query</button>
+      </div>
+      <div id="output"></div>
+    </div>
+  </body>
+  <script>
+    function showFileName(inputId, labelId) {
+      const input = document.getElementById(inputId);
+      const label = document.getElementById(labelId);
+      input.addEventListener("change", function () {
+        if (this.files && this.files.length > 0) {
+          label.textContent = this.files[0].name;
+          label.classList.add("selected");
+        } else {
+          label.textContent = "Choose file";
+          label.classList.remove("selected");
+        }
+      });
+    }
+    showFileName("fileInput", "fileInputLabel");
+    showFileName("indexInput", "indexInputLabel");
+
+    let uploadFile;
+    let indexFile;
+
+    window.addEventListener("load", () => {
+      GWRAG.initWrag().then(() => {});
+    });
+
+    document
+      .getElementById("queryEvalButton")
+      .addEventListener("click", function () {
+        GWRAG.evalQuery(1)
+          .then(() => {})
+          .catch((error) => {
+            console.error("Error:", error);
+          });
+      });
+
+    document
+      .getElementById("fileInput")
+      .addEventListener("change", function (event) {
+        uploadFile = event.target.files[0];
+        if (uploadFile) {
+          document.getElementById("loadButton").disabled = false;
+        }
+      });
+
+    document
+      .getElementById("indexInput")
+      .addEventListener("change", function (event) {
+        indexFile = event.target.files[0];
+        if (indexFile) {
+          document.getElementById("loadButton").disabled = false;
+          document.getElementById("loadCacheButton").disabled = false;
+        }
+      });
+
+    document
+      .getElementById("loadButton")
+      .addEventListener("click", function () {
+        if (uploadFile) {
+          GWRAG.importData(uploadFile)
+            .then(() => {
+              document.getElementById("exportButton").disabled = false; // Enable export button
+              document.getElementById("queryEvalButton").disabled = false; // Enable query button
+              document.getElementById("queryButton").disabled = false;
+            })
+            .catch((error) => {
+              console.error("Error:", error);
+              document.getElementById("exportButton").disabled = false; // Enable export button
+              document.getElementById("queryEvalButton").disabled = false; // Enable query button
+              document.getElementById("queryButton").disabled = false;
+            });
+        }
+      });
+
+    document
+      .getElementById("loadCacheButton")
+      .addEventListener("click", function () {
+        if (uploadFile && indexFile) {
+          GWRAG.importDataWithCache(uploadFile, indexFile)
+            .then(() => {
+              document.getElementById("exportButton").disabled = false; // Enable export button
+              document.getElementById("queryEvalButton").disabled = false; // Enable query button
+              document.getElementById("queryButton").disabled = false;
+            })
+            .catch((error) => {
+              console.error("Error:", error);
+              document.getElementById("exportButton").disabled = false; // Enable export button
+              document.getElementById("queryEvalButton").disabled = false; // Enable query button
+              document.getElementById("queryButton").disabled = false;
+            });
+        }
+      });
+
+    document
+      .getElementById("exportButton")
+      .addEventListener("click", async function () {
+        //string
+        let indexString = GWRAG.exportJsonlIndex();
+        // save string as jsonl
+        const blob = new Blob([indexString], { type: "application/jsonl" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "hnsw_graph.jsonl";
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      });
+
+    document
+      .getElementById("queryButton")
+      .addEventListener("click", async function () {
+        let queryArray = [];
+        for (let i = 0; i < 384; i++) {
+          queryArray[i] = Math.random();
+        }
+        const topK = 1;
+        const results = await GWRAG.fastQuery(queryArray, topK);
+        console.log(results);
+      });
+
+    function logToScreen(...messages) {
+      const outputDiv = document.getElementById("output");
+      const combinedMessage = messages.join(" ");
+      outputDiv.innerHTML += combinedMessage + "<br>";
+    }
+
+    console.log = function (...messages) {
+      logToScreen(...messages);
+    };
+  </script>
+</html>

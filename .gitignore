@@ -1,0 +1,5 @@
+*DS_Store/*
+*package-lock.json
+webanns-src/node_modules
+webanns-src/dist
+*test*
