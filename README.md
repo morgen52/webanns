@@ -33,7 +33,7 @@ const results = await GWRAG.fastQuery(queryArray, topK);
 ## Evaluating WebANNS
 ### Run evaluation webpage(Online)
 You can open the demo webpage directly by clicking the following link:
-https://morgen52.github.io/webanns/eval.html
+https://morgen52.github.io/webanns
 
 ### Run evaluation webpage(Offline)
 Firstly, you need to install the node modules for the evaluation demo:
