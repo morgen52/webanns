@@ -115,6 +115,18 @@ For example,
 
 If you find this work useful, please consider citing our paper.
 
+```
+@inproceedings{liu2025webanns,
+  author = {Liu, Mugeng and Zhong, Siqi and Yang, Qi and Han, Yudong and Liu, Xuanzhe and Ma, Yun},
+  title = {WebANNS: Fast and Efficient Approximate Nearest Neighbor Search in Web Browsers},
+  year = {2025},
+  doi = {10.1145/3726302.3730115},
+  booktitle = {Proceedings of the 48th International ACM SIGIR Conference on Research and Development in Information Retrieval},
+  pages = {2483–2492},
+  numpages = {10}
+}
+```
+
 ## Contact us
 
 If you have any questions, please feel free to email us (`lmg@pku.edu.cn`).
