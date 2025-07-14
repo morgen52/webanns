@@ -4,6 +4,7 @@
 [![Docker](https://img.shields.io/badge/Docker-v27.4.0-blue)](https://www.docker.com/)
 
 **Ultra-fast Approximate Nearest Neighbor Search in Browser**
+**See Our [Paper](https://dl.acm.org/doi/10.1145/3726302.3730115) in SIGIR 2025**
 
 ## Getting Started
 
